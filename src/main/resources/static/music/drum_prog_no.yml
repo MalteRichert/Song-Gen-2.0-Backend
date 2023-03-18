@@ -1,0 +1,19 @@
+# @author Benjamin Frahm
+# @reviewer Malte Richert
+# Maps each drum/cymbal to its midi value.
+# Drums/cymbals have to be configured here to be used in beat templates.
+#
+bass: 36
+bass2: 35
+snare: 38
+sideStick: 37
+woodClick: 39
+hiHat: 42
+oHiHat: 46
+ride: 51
+mTom: 47
+hTom: 50
+lTom: 45
+click: 32
+chimes: 33
+crash: 49

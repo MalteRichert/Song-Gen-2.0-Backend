@@ -1,0 +1,17 @@
+# @author Benjamin Frahm
+# @reviewer Malte Richert
+# Maps each instrument to its midi value.
+# Instruments have to be configured here to be used in structure templates.
+#
+chords: 1
+chords2: 2
+melody: 40
+melody2: 56
+vocals: 40
+drums: 114
+drums2: 118
+bass: 36 #52
+bass2: 53
+bariSax: 67
+violin: 40
+trumpet: 56

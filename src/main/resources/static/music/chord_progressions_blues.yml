@@ -1,0 +1,15 @@
+# @author Malte Richert
+# @reviewer Benjamin Frahm
+# Each list in the list describes one bar. If there are multiple elements in the inner list, the bar is split equally.
+#   That only works well for up to two chords per bar.
+# First char indicates the step of the scale (0: tonic, 4: dominant etc.), the rest is a modifier as configured in chord_modifiers.yml
+#   A chord without modifier is interpreted as major.
+#
+# Standard 12-bar blues pattern
+- [['07'], ['07'], ['07'], ['07'], ['37'], ['37'], ['07'], ['07'], ['47'], ['37'], ['07'], ['07']]
+# 12-bar blues pattern with turnaround
+- [['07'], ['07'], ['07'], ['07'], ['37'], ['37'], ['07'], ['07'], ['47'], ['37'], ['07'], ['47']]
+# 12-bar blues pattern with quick change
+- [['07'], ['37'], ['07'], ['07'], ['37'], ['37'], ['07'], ['07'], ['47'], ['37'], ['07'], ['07']]
+# 12-bar blues pattern with quick change and turnaround
+- [['07'], ['37'], ['07'], ['07'], ['37'], ['37'], ['07'], ['07'], ['47'], ['37'], ['07'], ['47']]
