@@ -26,7 +26,6 @@ public class ThemeVariation extends MidiPlayable {
 		createVariation();
 	}
 
-	// @SuppressWarnings("unused")
 	public ThemeVariation(Theme theme, int trackNo, int bar, boolean variationFlag) {
 		super(trackNo, bar);
 		this.theme = theme;
@@ -39,7 +38,7 @@ public class ThemeVariation extends MidiPlayable {
 		Integer[] posAndLength;
 		for (int bar = 0; bar < theme.getLengthInBars(); bar++) {
 			loopCounter = 0;
-			while (getNoteCountInBar(bar) < Integer.parseInt(text[bar][1]) && loopCounter < 50) {
+			while (getNoteCountInBar(bar) < ((text != null && text[bar] != null)? Integer.parseInt(text[bar][1]) : ran.nextInt(2,14) ) && loopCounter < 50) {
 				loopCounter++;
 				pos = ran.nextInt(16) * 6 + bar * 96;
 				posNextSmaller = getPosNext(pos, false);

@@ -9,14 +9,16 @@ import org.se.songgen2backend.music.model.Genre;
  * @author Val Richter
  */
 public class Settings {
-	private final boolean textMode;
+	private boolean textMode;
+
 	private final Genre genre;
 	private Integer tempo;
-
-	public Settings(boolean textMode, Genre genre, Integer tempo) {
+	private String fileType;
+	public Settings(boolean textMode, Genre genre, Integer tempo, String fileType) {
 		this.textMode = textMode;
 		this.genre = genre;
 		this.tempo = tempo;
+		this.fileType = fileType;
 	}
 
 	public Boolean getTextModeFlag() {
@@ -31,8 +33,15 @@ public class Settings {
 		return this.tempo;
 	}
 
+	public String getFileType() {
+		return this.fileType;
+	}
 	public void setTempo(Integer tempo) {
 		this.tempo = tempo;
+	}
+
+	public void setTextMode(boolean textMode) {
+		this.textMode = textMode;
 	}
 
 	@Override

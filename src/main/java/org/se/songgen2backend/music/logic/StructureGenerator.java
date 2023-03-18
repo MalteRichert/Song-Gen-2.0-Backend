@@ -21,20 +21,29 @@ public class StructureGenerator {
 	private static Structure structure;
 	private static final Map<Integer, Integer> trackMapping = new HashMap<>();
 
+	public static MidiSequence generateStructure(Settings settings){
+		return generateStructure(settings, null, null);
+	}
 	public static MidiSequence generateStructure(Settings settings, TermCollection terms, MoodType mood) {
 		Random ran = new Random();
+		trackMapping.clear();
 		structure = Config.getStructures().get(ran.nextInt(Config.getStructures().size()));
 		structure.setGenre(settings.getGenre());
 		structure.setKey(new MusicalKey());
 		structure.setTempo(settings.getTempo());
 
-		SongTextGenerator textGenerator = new SongTextGenerator();
-		Map<String, List<String[][]>> songText = textGenerator.generateSongText(structure, terms, mood);
+		Map<String, List<String[][]>> songText = null;
+		if (settings.getTextModeFlag()) {
+			SongTextGenerator textGenerator = new SongTextGenerator();
+			songText = textGenerator.generateSongText(structure, terms, mood);
+		}
 
 		MidiSequence seq = initMidiSequence(structure);
 
-		structure.getPart(structure.getBasePartKey()).fillRandomly(structure.getKey(), trackMapping, structure.getGenre() == Genre.POP ? 4 : 12,
-				songText.get(structure.getBasePartKey()).get(0));
+		structure.getPart(structure.getBasePartKey()).fillRandomly(
+				structure.getKey(), trackMapping, structure.getGenre() == Genre.BLUES ? 12 : 4,
+				(settings.getTextModeFlag()) ? songText.get(structure.getBasePartKey()).get(0) : null
+		);
 
 		for (String partName : structure.getParts().keySet()) {
 			if (partName.equals(structure.getBasePartKey())) {
@@ -51,7 +60,9 @@ public class StructureGenerator {
 			} else {
 				progression = Config.getChordProgressions().get(ran.nextInt(Config.getChordProgressions().size()));
 			}
-			part.fillPart(progression, structure.getKey(), trackMapping, structure.getGenre() == Genre.POP ? 4 : 12, songText.get(partName).get(0));
+			part.fillPart(progression, structure.getKey(), trackMapping, structure.getGenre() == Genre.BLUES ? 12 : 4,
+					(settings.getTextModeFlag()) ? songText.get(partName).get(0) : null
+			);
 		}
 
 		seq.setEnd(calculateLength());
@@ -63,8 +74,12 @@ public class StructureGenerator {
 				m.setBar(m.getBar() - barOffset);
 			}
 			seq.addText(barOffset * 4, 0, partName);
-			if (partContainsVocal(structure.getPart(partName))) {
+
+
+			if (settings.getTextModeFlag() && partContainsVocal(structure.getPart(partName))) {
+				assert songText != null;
 				Part p = structure.getPart(partName);
+
 				MidiText t;
 				for (int bar = 0; bar < p.getLength(); bar++) {
 					t = new MidiText(trackMapping.get(Config.getInstrumentMapping().get("vocals")), bar + barOffset,
@@ -74,8 +89,8 @@ public class StructureGenerator {
 				if (!partName.contains("horus")) {
 					songText.get(partName).remove(0);
 				}
-
 			}
+
 			for (MidiText t : structure.getPart(partName).getMidiTexts()) {
 				t.setBar(t.getBar() + barOffset);
 				seq.addMidiText(t);
@@ -88,7 +103,9 @@ public class StructureGenerator {
 
 	public static MidiSequence initMidiSequence(Structure s) {
 		int currentTrackNo = 0;
+		System.out.println("starting to loop through parts: ");
 		for (Part part : s.getParts().values()) {
+			System.out.println("part: " + part);
 			for (InstrumentEnum instrument : part.getReqInsts()) {
 				currentTrackNo = putTrackNo(currentTrackNo, instrument);
 			}

@@ -22,7 +22,7 @@ import java.util.Map;
 public class MidiSequence {
 	private static final int PPQ_RESOLUTION = 24;
 	private Sequence seq;
-	private Track[] t;
+	private Track[] tracks;
 	private boolean endIsSet = false;
 	private int bpm;
 
@@ -33,13 +33,11 @@ public class MidiSequence {
 			for (int i = 0; i < trackNumber; i++) {
 				seq.createTrack();
 			}
-			t = seq.getTracks();
+			tracks = seq.getTracks();
 		} catch (InvalidMidiDataException e) {
 			e.printStackTrace();
 		}
 	}
-
-	public MidiSequence(){}
 
 	/**
 	 * the formula to get the midi-format speed-values is 60_000_000 / BPM = microsecondsPerQuarter = mps.
@@ -63,7 +61,7 @@ public class MidiSequence {
 			byte[] bt = { (byte) ((tempo & 0xFF0000) >> 16), (byte) ((tempo & 0x00FF00) >> 8), (byte) (tempo & 0x0000FF) };
 			mt.setMessage(0x51, bt, 3);
 			MidiEvent me = new MidiEvent(mt, 0);
-			for (Track track : t) {
+			for (Track track : tracks) {
 				track.add(me);
 			}
 
@@ -94,7 +92,7 @@ public class MidiSequence {
 
 			mt.setMessage(0x59, new byte[] { k, s }, 0x02);
 			MidiEvent me = new MidiEvent(mt, 0);
-			t[trackNumber].add(me);
+			tracks[trackNumber].add(me);
 		} catch (InvalidMidiDataException e) {
 			e.printStackTrace();
 
@@ -114,7 +112,7 @@ public class MidiSequence {
 				mm.setMessage(0xC0, instrument, 0x00);
 			}
 			MidiEvent me = new MidiEvent(mm, 0);
-			t[trackNumber].add(me);
+			tracks[trackNumber].add(me);
 
 		} catch (InvalidMidiDataException e) {
 			e.printStackTrace();
@@ -131,7 +129,7 @@ public class MidiSequence {
 			byte[] bet = {}; // empty array
 			mt.setMessage(0x2F, bet, 0);
 			MidiEvent me = new MidiEvent(mt, (long) bars * 24 * 4);
-			for (Track track : t) {
+			for (Track track : tracks) {
 				track.add(me);
 			}
 
@@ -147,7 +145,7 @@ public class MidiSequence {
 			MetaMessage mt = new MetaMessage();
 			mt.setMessage(0x01, text.getBytes(), text.getBytes().length);
 			MidiEvent me = new MidiEvent(mt, position * 24L);
-			t[trackNumber].add(me);
+			tracks[trackNumber].add(me);
 		} catch (InvalidMidiDataException e) {
 			e.printStackTrace();
 		}
@@ -160,13 +158,13 @@ public class MidiSequence {
 			ShortMessage mm = new ShortMessage();
 			mm.setMessage(0x90, note, 0x60);
 			MidiEvent me = new MidiEvent(mm, start);
-			t[trackNumber].add(me);
+			tracks[trackNumber].add(me);
 
 			// note off event (0x80)
 			mm = new ShortMessage();
 			mm.setMessage(0x80, note, 0x40);
 			me = new MidiEvent(mm, start + length);
-			t[trackNumber].add(me);
+			tracks[trackNumber].add(me);
 		} catch (InvalidMidiDataException e) {
 			e.printStackTrace();
 		}

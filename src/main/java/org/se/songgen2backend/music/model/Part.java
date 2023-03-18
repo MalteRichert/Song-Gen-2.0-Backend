@@ -108,8 +108,13 @@ public class Part {
 					if (instr.toString().equals("melody2")) {
 						m = new ThemeVariation(theme, trackMapping.get(Config.getInstrumentMapping().get(instr.toString())), bar, false);
 					} else {
-						m = new ThemeVariation(theme, trackMapping.get(Config.getInstrumentMapping().get(instr.toString())), bar,
-								Arrays.copyOfRange(text, bar, bar + theme.getLengthInBars()));
+						System.out.println("bar: " + bar);
+						System.out.println("themeLength: " + theme.getLengthInBars());
+						m = new ThemeVariation(
+								theme, trackMapping.get(Config.getInstrumentMapping().get(instr.toString())),
+								bar,
+								(text != null) ? Arrays.copyOfRange(text, bar, bar + theme.getLengthInBars()) : null
+						);
 					}
 					midiPlayables.add(m);
 				}

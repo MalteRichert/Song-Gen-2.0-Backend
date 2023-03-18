@@ -2,7 +2,6 @@ package org.se.songgen2backend.text.analysis;
 
 import java.util.*;
 
-import org.se.songgen2backend.PartialProgressTask;
 import org.se.songgen2backend.text.analysis.model.Sentence;
 
 public class Preprocessor {
@@ -10,10 +9,6 @@ public class Preprocessor {
 
 	public Preprocessor(String text) {
 		this.text = text;
-	}
-
-	protected List<Sentence> call() throws Exception {
-		return preprocess();
 	}
 
 	/**
