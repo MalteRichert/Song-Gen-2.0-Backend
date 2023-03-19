@@ -2,12 +2,9 @@ package org.se.songgen2backend.text.analysis;
 
 import java.util.*;
 
-import org.se.songgen2backend.PartialProgressTask;
 import org.se.songgen2backend.text.analysis.dict.Dict;
 import org.se.songgen2backend.text.analysis.model.Sentence;
 import org.se.songgen2backend.text.analysis.model.TagType;
-import org.se.songgen2backend.text.analysis.dict.*;
-import org.se.songgen2backend.text.analysis.model.*;
 
 /**
  * @author Val Richter
@@ -20,13 +17,6 @@ public class Analyzer {
 	public Analyzer(List<Sentence> sentences, Dict dict) {
 		this.sentences = sentences;
 		this.dict = dict;
-	}
-
-	protected TermCollection call() throws Exception {
-		List<Tag> tags = tag();
-
-		TermCollection res = buildTerms(tags);
-		return res;
 	}
 
 	/**
