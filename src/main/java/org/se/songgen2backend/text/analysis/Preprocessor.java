@@ -5,7 +5,7 @@ import java.util.*;
 import org.se.songgen2backend.text.analysis.model.Sentence;
 
 public class Preprocessor {
-	protected String text;
+	protected final String text;
 
 	public Preprocessor(String text) {
 		this.text = text;
@@ -19,7 +19,6 @@ public class Preprocessor {
 	 *
 	 * @implNote The preprocessing runs in `O(n)`, as it only loops through the text one time.
 	 *
-	 * @return
 	 */
 	public List<Sentence> preprocess() {
 		String wordSplitter = "-_";

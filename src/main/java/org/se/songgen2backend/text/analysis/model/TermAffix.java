@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * @author Val Richter
- * 
+ * <p>
  *         Parent Class for the {@link Declination} and {@link Conjugation} classes.
  */
 public class TermAffix {

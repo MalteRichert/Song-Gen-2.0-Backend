@@ -8,7 +8,7 @@ import org.se.songgen2backend.text.analysis.model.Tuple;
 
 /**
  * @author Val Richter
- *
+ * <p>
  *         A utility class that provides some useful functionality. Especially some functions that otherwise would only
  *         be possible through {@link java.util.stream.Stream} objects are easily provided for all {@link Iterable}
  *         objects.

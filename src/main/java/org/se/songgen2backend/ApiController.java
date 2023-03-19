@@ -26,7 +26,7 @@ public class ApiController {
             @RequestParam("BPM") String bpm,
             @RequestParam("fileType") String fileType
             ){
-        System.out.println("Request Received");
+        System.out.println("Received request to generate song");
         Settings settings = new Settings(!(multipartFile == null), Genre.valueOf(genre), Integer.parseInt(bpm), fileType);
         byte[] inputFile;
         if (!(multipartFile == null)) {
@@ -48,7 +48,7 @@ public class ApiController {
     )
     public @ResponseBody byte[] getMidiFile(@PathVariable("filename") String filename) {
         try {
-            System.out.println("Received Request");
+            System.out.println("Received request to download existing song");
             InputStream is = new FileInputStream("/data/" + filename + ".mid");
             return IOUtils.toByteArray(is);
         } catch (Exception e) {

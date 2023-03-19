@@ -9,8 +9,6 @@ import org.se.songgen2backend.text.analysis.VerbTerm;
 import org.se.songgen2backend.text.analysis.model.Gender;
 import org.se.songgen2backend.text.analysis.model.GrammaticalCase;
 import org.se.songgen2backend.text.analysis.model.Numerus;
-import org.se.songgen2backend.text.analysis.*;
-import org.se.songgen2backend.text.analysis.model.*;
 import org.se.songgen2backend.text.metric.Hyphenizer;
 import org.se.songgen2backend.text.metric.MoodType;
 

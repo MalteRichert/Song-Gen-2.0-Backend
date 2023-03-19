@@ -3,10 +3,6 @@ package org.se.songgen2backend.text.metric;
 import java.io.IOException;
 import java.util.List;
 
-import org.se.songgen2backend.text.analysis.NounTerm;
-import org.se.songgen2backend.text.analysis.TermCollection;
-import org.se.songgen2backend.text.analysis.TermVariations;
-import org.se.songgen2backend.text.analysis.VerbTerm;
 import org.se.songgen2backend.text.analysis.model.Sentence;
 import org.se.songgen2backend.text.analysis.*;
 

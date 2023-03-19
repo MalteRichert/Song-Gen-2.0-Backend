@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 import org.se.songgen2backend.text.analysis.model.*;
-import org.se.songgen2backend.text.analysis.model.*;
 
 /**
  * @author Val Richter
@@ -57,7 +56,6 @@ public class Parser {
 	public static GrammaticalCase parseGrammaticalCase(String s) {
 		s = s.toLowerCase();
 		return switch (s.charAt(0)) {
-			case 'n' -> GrammaticalCase.NOMINATIVE;
 			case 'g' -> GrammaticalCase.GENITIVE;
 			case 'd' -> GrammaticalCase.DATIVE;
 			case 'a' -> GrammaticalCase.ACCUSATIVE;
@@ -68,12 +66,8 @@ public class Parser {
 	public static Person parsePerson(String s) {
 		s = s.toLowerCase();
 		return switch (s.charAt(0)) {
-			case '1' -> Person.FIRST;
-			case 'f' -> Person.FIRST;
-			case '2' -> Person.SECOND;
-			case 's' -> Person.SECOND;
-			case '3' -> Person.THIRD;
-			case 't' -> Person.THIRD;
+			case '2', 's' -> Person.SECOND;
+			case '3', 't' -> Person.THIRD;
 			default -> Person.FIRST;
 		};
 	}
@@ -139,7 +133,7 @@ public class Parser {
 	/**
 	 * Parse a CSV File with a given function. The function is consumes each row of the CSV-File except for the first, which
 	 * is interpreted as the header-row
-	 *
+	 * <p>
 	 * The CSV-File is expected to have no commas or newline-characters inside of values.
 	 *
 	 * @param filepath
@@ -148,7 +142,6 @@ public class Parser {
 	 *            The function that is executed on each row of the CSV-File. Its Input is a {@link WordWithData} object,
 	 *            which is a wrapper around a {@link java.util.HashMap} of Strings to Strings. In other words, each row is
 	 *            given as a map from the column's name to the cell's value.
-	 * @throws IOException
 	 */
 	public static void parseCSV(Path filepath, Consumer<? super WordWithData> forEachRow) throws IOException {
 		if (!filepath.toString().endsWith(".csv") && !Files.exists(filepath)) {
@@ -182,7 +175,6 @@ public class Parser {
 	 *            The list which should be populated with the data in the CSV-File
 	 * @param cls
 	 *            The Class of Type `T`. This is necessary to use Java's reflection capabilities.
-	 * @throws IOException
 	 */
 	public static <T> void parseCSV(Path filepath, List<T> list, Class<T> cls) throws IOException {
 		parseCSV(filepath, row -> {

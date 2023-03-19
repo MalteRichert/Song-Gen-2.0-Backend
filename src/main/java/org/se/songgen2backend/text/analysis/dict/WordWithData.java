@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * @author Val Richter
  * @reviewer Jakob Kautz
- *
+ * <p>
  *           This is just a convenient wrapper around a `HashMap<String, String>`. It is primarily used for data that
  *           comes from CSV-Files. The main convenience of this wrapper comes from a) having a base key and b) allowing
  *           immediately parsing the String-values via the {@link Parser} class

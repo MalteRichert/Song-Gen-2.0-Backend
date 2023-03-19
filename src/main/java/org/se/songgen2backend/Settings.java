@@ -13,7 +13,7 @@ public class Settings {
 
 	private final Genre genre;
 	private Integer tempo;
-	private String fileType;
+	private final String fileType;
 	public Settings(boolean textMode, Genre genre, Integer tempo, String fileType) {
 		this.textMode = textMode;
 		this.genre = genre;

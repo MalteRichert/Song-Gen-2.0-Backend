@@ -9,7 +9,7 @@ import org.se.songgen2backend.text.metric.Hyphenizer;
 /**
  * @author Val Richter
  * @reviewer Jakob Kautz
- *
+ * <p>
  *           This is the parent class for {@link NounTerm} and {@link VerbTerm}.
  *
  * @implNote

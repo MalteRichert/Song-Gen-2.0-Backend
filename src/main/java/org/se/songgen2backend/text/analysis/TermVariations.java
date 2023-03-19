@@ -5,15 +5,12 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import org.se.songgen2backend.text.analysis.dict.Dict;
-import org.se.songgen2backend.text.analysis.model.Gender;
-import org.se.songgen2backend.text.analysis.model.GrammaticalCase;
-import org.se.songgen2backend.text.analysis.model.Numerus;
 import org.se.songgen2backend.text.analysis.model.*;
 
 /**
  * @author Val Richter
  * @reviewer Jakob Kautz
- *
+ * <p>
  *           Stores all different variations of a {@link Term} that appeared in the text. A {@link Term} might appear in
  *           two different grammatical cases in the text for example and while their strings are different, they still
  *           represent the same term. Such different terms are all stored together in this class. Among other things,
@@ -28,10 +25,10 @@ import org.se.songgen2backend.text.analysis.model.*;
  *           Term exist.
  */
 public class TermVariations<T extends Term<T>> {
-	private Map<Integer, T> variations;
+	private final Map<Integer, T> variations;
 	private Integer frequency;
 	private String radix;
-	private Random rand = new Random();
+	private final Random rand = new Random();
 
 	public TermVariations(T term) {
 		this.variations = new HashMap<>();

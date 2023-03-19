@@ -4,15 +4,12 @@ import java.util.*;
 import java.util.function.*;
 
 import org.se.songgen2backend.text.analysis.dict.Dict;
-import org.se.songgen2backend.text.analysis.model.Gender;
-import org.se.songgen2backend.text.analysis.model.GrammaticalCase;
-import org.se.songgen2backend.text.analysis.model.Numerus;
 import org.se.songgen2backend.text.analysis.model.*;
 
 /**
  * @author Val Richter
  * @reviewer Jakob Kautz
- *
+ * <p>
  *           A collection of all Terms offering an API to interact with and especially query these Terms according to
  *           some constraints (like the term's numerus for example).
  */
@@ -25,12 +22,8 @@ public class TermCollection {
 	public TermCollection(Dict dict, Map<String, TermVariations<NounTerm>> nouns, Map<String, TermVariations<VerbTerm>> verbs) {
 		this.nouns = new ArrayList<>();
 		this.verbs = new ArrayList<>();
-		for (TermVariations<NounTerm> noun : nouns.values()) {
-			this.nouns.add(noun);
-		}
-		for (TermVariations<VerbTerm> verb : verbs.values()) {
-			this.verbs.add(verb);
-		}
+		this.nouns.addAll(nouns.values());
+		this.verbs.addAll(verbs.values());
 		this.dict = dict;
 	}
 
@@ -206,7 +199,7 @@ public class TermCollection {
 	}
 
 	public static <T extends Term<T>> List<T> mostCommonTerms(List<TermVariations<T>> terms) {
-		List<T> res = terms.stream().map(x -> x.getVariations().values().stream()).flatMap(Function.identity()).toList();
+		List<T> res = terms.stream().flatMap(x -> x.getVariations().values().stream()).toList();
 		res.sort(new TermComp<>());
 		return res.subList(0, 10);
 	}

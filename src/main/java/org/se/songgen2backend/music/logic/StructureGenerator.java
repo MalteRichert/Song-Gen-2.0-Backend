@@ -103,9 +103,7 @@ public class StructureGenerator {
 
 	public static MidiSequence initMidiSequence(Structure s) {
 		int currentTrackNo = 0;
-		System.out.println("starting to loop through parts: ");
 		for (Part part : s.getParts().values()) {
-			System.out.println("part: " + part);
 			for (InstrumentEnum instrument : part.getReqInsts()) {
 				currentTrackNo = putTrackNo(currentTrackNo, instrument);
 			}

@@ -4,15 +4,12 @@ import java.util.*;
 import java.util.function.*;
 
 import org.se.songgen2backend.text.analysis.Term;
-import org.se.songgen2backend.text.analysis.model.AffixType;
-import org.se.songgen2backend.text.analysis.model.TermAffix;
-import org.se.songgen2backend.text.analysis.model.Tuple;
 import org.se.songgen2backend.text.analysis.model.*;
 
 /**
  * @author Val Richter
  * @reviewer Jakob Kautz
- *
+ * <p>
  *           An intermediate representation of words before they are turned into {@link Term}
  *           objects. Each {@link WordStemmer} object represents a possible way to interpret the given String as a Term.
  *           The {@link Dict} class uses these objects to find whether a given Word can be a Noun/Verb and to build its
@@ -23,9 +20,9 @@ import org.se.songgen2backend.text.analysis.model.*;
  *           frequently than they are accessed.
  */
 public class WordStemmer {
-	private String stem = "";
-	private List<WordWithData> compounds = new LinkedList<>();
-	private StringBuilder compoundStrBuilder = new StringBuilder();
+	private String stem;
+	private final List<WordWithData> compounds = new LinkedList<>();
+	private final StringBuilder compoundStrBuilder = new StringBuilder();
 	private TermAffix grammartizedSuffix = new TermAffix();
 	private TermAffix grammartizedPrefix = new TermAffix();
 	private List<WordWithData> prefixes = new LinkedList<>();
@@ -113,7 +110,6 @@ public class WordStemmer {
 	 *            A list of all possible umlaut changes stored in the {@link Dict} object.
 	 * @param baseKey
 	 *            The baseKey for all the {@link WordWithData} objects.
-	 * @return
 	 */
 	public static WordStemmer[] radicalize(String s, WordList terms, List<? extends TermAffix> grammartizedAffixes, WordList suffixes,
 			WordList prefixes, WordList addableCompParts, WordList subtractabeCompParts, int minStemLength, WordList diphtongs,

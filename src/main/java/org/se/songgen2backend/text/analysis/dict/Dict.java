@@ -2,8 +2,6 @@ package org.se.songgen2backend.text.analysis.dict;
 
 import org.se.songgen2backend.text.analysis.*;
 import org.se.songgen2backend.text.analysis.model.*;
-import org.se.songgen2backend.text.analysis.*;
-import org.se.songgen2backend.text.analysis.model.*;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
@@ -12,27 +10,27 @@ import java.util.function.Function;
 /**
  * @author Val Richter
  * @reviewer Jakob Kautz
- *
+ * <p>
  *           This class stores a lot of data from the resources and offers much of the logic for interacting with said
  *           data. Specifically, it also offers the ability to check the type of a word (i.e. is a noun/verb/other) and
  *           to build a full {@link Term} object from a given word.
  */
 public class Dict {
-	WordList nounSuffixes = new WordList();
-	WordList nounPrefixes = new WordList();
-	WordList nouns = new WordList();
-	WordList verbSuffixes = new WordList();
-	WordList verbPrefixes = new WordList();
-	WordList verbs = new WordList();
-	WordList diphthongs = new WordList();
-	WordList umlautChanges = new WordList();
-	WordList addableNounCompParts = new WordList();
-	WordList subtractableNounCompParts = new WordList();
-	WordList addableVerbCompParts = new WordList();
-	WordList subtractableVerbCompParts = new WordList();
-	WordList genderChangeSuffixes = new WordList();
-	List<Declination> declinatedAffixes = new ArrayList<>();
-	List<Conjugation> conjugatedAffixes = new ArrayList<>();
+	final WordList nounSuffixes = new WordList();
+	final WordList nounPrefixes = new WordList();
+	final WordList nouns = new WordList();
+	final WordList verbSuffixes = new WordList();
+	final WordList verbPrefixes = new WordList();
+	final WordList verbs = new WordList();
+	final WordList diphthongs = new WordList();
+	final WordList umlautChanges = new WordList();
+	final WordList addableNounCompParts = new WordList();
+	final WordList subtractableNounCompParts = new WordList();
+	final WordList addableVerbCompParts = new WordList();
+	final WordList subtractableVerbCompParts = new WordList();
+	final WordList genderChangeSuffixes = new WordList();
+	final List<Declination> declinatedAffixes = new ArrayList<>();
+	final List<Conjugation> conjugatedAffixes = new ArrayList<>();
 	final String baseKey;
 
 	static final String GENDER_KEY = "gender";
@@ -45,7 +43,6 @@ public class Dict {
 	 *
 	 * @param dirPath
 	 *            The path to the resource directory, where all of the files for the {@link Dict} can be found.
-	 * @throws IOException
 	 */
 	public Dict(Path dirPath) throws IOException {
 		this.baseKey = DEFAULT_BASE_KEY;
@@ -226,9 +223,8 @@ public class Dict {
 		if (verb.isPresent()) return new Tag(s, TagType.VERB, verb.get());
 
 		Optional<WordStemmer> noun = getBestOfStems(getPossibleNounStems(s), true);
-		if (noun.isPresent()) return new Tag(s, TagType.NOUN, noun.get());
+		return noun.map(wordStemmer -> new Tag(s, TagType.NOUN, wordStemmer)).orElseGet(() -> new Tag(s, TagType.OTHER));
 
-		return new Tag(s, TagType.OTHER);
 	}
 
 	/**
@@ -261,15 +257,14 @@ public class Dict {
 				WordStemmer data = t.getData().get();
 				Declination declinatedSuffix = (Declination) data.getGrammartizedSuffix();
 
-				StringBuilder radixBuilder = new StringBuilder();
-				radixBuilder.append(data.getCompoundsStr());
-				radixBuilder.append(data.getStem());
+				String radixBuilder = data.getCompoundsStr() +
+						data.getStem();
 
 				Numerus numerus = declinatedSuffix.getNumerus();
 				GrammaticalCase grammaticalCase = declinatedSuffix.getGrammaticalCase();
 				Gender gender = declinatedSuffix.getGender();
 
-				return Optional.of(new NounTerm(radixBuilder.toString(), t.getWord(), numerus, grammaticalCase, gender));
+				return Optional.of(new NounTerm(radixBuilder, t.getWord(), numerus, grammaticalCase, gender));
 			} else {
 				return Optional.empty();
 			}
@@ -403,6 +398,7 @@ public class Dict {
 				for (int j = 0; comparison && j < initial.length && j + i < chars.length; j++) {
 					if (initial[j] != chars[i + j]) {
 						comparison = false;
+						break;
 					}
 				}
 				// If the comparison was correct, update the umlaut sequence
