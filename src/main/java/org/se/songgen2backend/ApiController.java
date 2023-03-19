@@ -1,8 +1,6 @@
-package org.se.songgen2backend.api;
+package org.se.songgen2backend;
 
 import org.apache.commons.io.IOUtils;
-import org.se.songgen2backend.GeneratorService;
-import org.se.songgen2backend.Settings;
 import org.se.songgen2backend.music.model.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
