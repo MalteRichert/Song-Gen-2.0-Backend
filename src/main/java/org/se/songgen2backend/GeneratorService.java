@@ -9,7 +9,7 @@ public class GeneratorService {
         SongGenerator songGenerator = new SongGenerator(settings, inputFile);
         MidiSequence sequence = songGenerator.call();
         String filename = songGenerator.getFileName();
-        sequence.createFile("./data/" + filename + ".mid");
+        sequence.createFile("/data/" + filename + ".mid");
 
         return filename;
     }

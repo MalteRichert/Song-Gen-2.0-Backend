@@ -49,7 +49,7 @@ public class ApiController {
     public @ResponseBody byte[] getMidiFile(@PathVariable("filename") String filename) {
         try {
             System.out.println("Received Request");
-            InputStream is = new FileInputStream("./data/" + filename + ".mid");
+            InputStream is = new FileInputStream("/data/" + filename + ".mid");
             return IOUtils.toByteArray(is);
         } catch (Exception e) {
             return new byte[]{};
